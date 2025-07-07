@@ -7,7 +7,7 @@ const path = require("path");
 
 // ✅ Allow both local and production frontends
 const allowedOrigins = [
-  "http://localhost:3000",
+  "http://localhost:3000","https://vastu-sanjivani-frontend.vercel.app/",
   
 ];
 
@@ -41,6 +41,7 @@ const serviceRoutes = require("./Routes/serviceRoutes.js");
 const applicationRoutes = require("./Routes/applicationRoutes.js");
 const testimonialRoutes = require("./Routes/testimonialRoutes.js");
 const courseRoutes = require("./Routes/courseRoutes.js");
+const studentRoutes = require("./Routes/studentRoutes.js");
 
 app.use("/services", serviceRoutes);
 app.use("/portfolio", portfolioRoutes);
@@ -50,6 +51,7 @@ app.use("/contact", contactRoute);
 app.use("/apply", applicationRoutes);
 app.use("/testimonials", testimonialRoutes);
 app.use("/courses", courseRoutes);
+app.use("/api", studentRoutes);
 
 // Serve static uploads (e.g., images)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
