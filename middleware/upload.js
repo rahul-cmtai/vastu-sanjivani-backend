@@ -23,7 +23,7 @@ const upload = multer({
             cb(null, { fieldName: file.fieldname });
         },
         key: function (req, file, cb) {
-            const folder = 'blogs'; // Store blog images in blogs folder
+            const folder = req.folder || 'blogs'; // Allow dynamic folder selection
             const fileName = `${folder}/${Date.now()}-${file.originalname}`;
             cb(null, fileName);
         }

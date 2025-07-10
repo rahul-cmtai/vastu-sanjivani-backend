@@ -42,6 +42,7 @@ const applicationRoutes = require("./Routes/applicationRoutes.js");
 const testimonialRoutes = require("./Routes/testimonialRoutes.js");
 const courseRoutes = require("./Routes/courseRoutes.js");
 const studentRoutes = require("./Routes/studentRoutes.js");
+const studentSuccessStoryRoutes = require("./Routes/StudentSuccessStory.js");
 
 app.use("/services", serviceRoutes);
 app.use("/portfolio", portfolioRoutes);
@@ -52,6 +53,7 @@ app.use("/apply", applicationRoutes);
 app.use("/testimonials", testimonialRoutes);
 app.use("/courses", courseRoutes);
 app.use("/api", studentRoutes);
+app.use("/student-success-stories", studentSuccessStoryRoutes);
 
 // Serve static uploads (e.g., images)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
