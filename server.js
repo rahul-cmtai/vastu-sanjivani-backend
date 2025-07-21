@@ -7,7 +7,7 @@ const path = require("path");
 
 // ✅ Allow both local and production frontends
 const allowedOrigins = [
-  "http://localhost:3000","https://vastu-sanjivani-frontend.vercel.app/",
+  "http://localhost:3000","https://vastu-sanjivani-frontend.vercel.app",
   
 ];
 
