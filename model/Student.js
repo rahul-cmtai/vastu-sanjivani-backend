@@ -7,12 +7,12 @@ const EducationSchema = new mongoose.Schema({
   achievement: String, // optional
 }, { _id: false });
 
-const ProjectSchema = new mongoose.Schema({
-  name: String,
-  description: String,
-  year: String,
-  image: String,
-}, { _id: false });
+// const ProjectSchema = new mongoose.Schema({
+//   name: String,
+//   description: String,
+//   year: String,
+//   image: String,
+// }, { _id: false });
 
 const TestimonialSchema = new mongoose.Schema({
   name: String,
@@ -34,7 +34,7 @@ const StudentSchema = new mongoose.Schema({
   bio: String,
   education: [EducationSchema],
   specializations: [String],
-  projects: [ProjectSchema],
+  // projects: [ProjectSchema],
   testimonials: [TestimonialSchema],
   createdAt: { type: Date, default: Date.now }
 });
