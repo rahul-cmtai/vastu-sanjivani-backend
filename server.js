@@ -7,18 +7,23 @@ const path = require("path");
 
 // ✅ Allow both local and production frontends
 const allowedOrigins = [
-  "http://localhost:3000","https://vastu-sanjivani-frontend.vercel.app",
-  
+  "http://localhost:3000",
+  "https://vastu-sanjivani-frontend.vercel.app",
+  "https://vastu-sanjivani-frontend.vercel.app/"
 ];
 
 // Middleware
+app.set("trust proxy", 1);
+
+// ✅ CORS middleware
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl)
+      // Allow requests with no origin (mobile apps, curl, etc.)
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
+        console.error("Blocked by CORS:", origin);
         callback(new Error("Not allowed by CORS"));
       }
     },
