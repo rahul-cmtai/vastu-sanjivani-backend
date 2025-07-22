@@ -105,6 +105,14 @@ exports.login = async (req, res) => {
 
     const token = generateToken(user);
 
+    // Set JWT as httpOnly cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // send only over https in production
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
     res.status(200).json({
       success: true,
       message: "Login successful.",
@@ -122,6 +130,16 @@ exports.login = async (req, res) => {
       .status(500)
       .json({ message: err.message || "Server error during login." });
   }
+};
+
+// --- Logout ---
+exports.logout = (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+  res.status(200).json({ success: true, message: "Logged out successfully." });
 };
 
 // --- Update Password (for logged-in users) ---

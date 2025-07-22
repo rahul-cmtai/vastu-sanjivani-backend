@@ -29,6 +29,7 @@ const protect = async (req, res, next) => {
       }
 
       next();
+      return;
     } catch (error) {
       console.error("Token verification error:", error.message);
       if (error.name === "JsonWebTokenError") {
@@ -42,6 +43,29 @@ const protect = async (req, res, next) => {
         return res
           .status(401)
           .json({ message: "Not authorized, token expired" });
+      }
+      return res.status(401).json({ message: "Not authorized, token failed" });
+    }
+  }
+
+  // Check for token in cookies if not in header
+  if (!token && req.cookies && req.cookies.token) {
+    try {
+      token = req.cookies.token;
+      const decoded = jwt.verify(token, JWT_SECRET);
+      req.user = await User.findById(decoded.id).select("-password");
+      if (!req.user) {
+        return res.status(401).json({ message: "Not authorized, user not found" });
+      }
+      next();
+      return;
+    } catch (error) {
+      console.error("Cookie token verification error:", error.message);
+      if (error.name === "JsonWebTokenError") {
+        return res.status(401).json({ message: "Not authorized, token failed (invalid signature)" });
+      }
+      if (error.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "Not authorized, token expired" });
       }
       return res.status(401).json({ message: "Not authorized, token failed" });
     }

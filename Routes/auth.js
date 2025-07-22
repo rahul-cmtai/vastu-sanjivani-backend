@@ -17,5 +17,6 @@ router.put("/updatepassword", protect, updatePassword); // Existing update for l
 // New routes for forgot password flow
 router.post("/requestpasswordreset", requestPasswordReset);
 router.put("/resetpassword/:token", resetPassword); // Token will be in URL param
+router.post("/logout", require("../controllers/auth").logout);
 
 module.exports = router;
